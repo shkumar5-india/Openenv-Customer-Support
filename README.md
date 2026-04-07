@@ -162,15 +162,3 @@ docker run -p 7860:7860 openenv-support
 * AI agent evaluation
 * Customer support automation testing
 * Simulation-based training systems
-
----
-
-## 🤝 Contributing
-
-Feel free to fork the repo and submit pull requests.
-
----
-
-## 📄 License
-
-This project is open-source and available under the MIT License.
