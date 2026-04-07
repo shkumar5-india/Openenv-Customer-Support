@@ -48,12 +48,14 @@ async def root() -> Dict[str, Any]:
 async def get_tasks() -> Dict[str, Any]:
     return {"tasks": list_tasks()}
 @app.post("/reset")
-async def reset(
-    task: str = Query(default="easy_classification")
-) -> Dict[str, Any]:
+async def reset(task: str = Query(default="easy_classification")) -> Dict[str, Any]:
     try:
         obs = await _env.reset(task_name=task)
-        logger.info("Episode reset. task=%s episode_id=%s", task, obs.metadata.get("episode_id"))
+        logger.info(
+            "Episode reset. task=%s episode_id=%s",
+            task,
+            obs.metadata.get("episode_id"),
+        )
         return {"observation": obs.model_dump()}
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc))
@@ -81,12 +83,15 @@ async def state() -> Dict[str, Any]:
 async def close() -> Dict[str, str]:
     await _env.close()
     return {"status": "closed"}
-if __name__ == "__main__":
+def main():
     port = int(os.environ.get("PORT", 7860))
     uvicorn.run(
         "server.app:app",
         host="0.0.0.0",
         port=port,
-        reload=False,
         log_level="info",
     )
+
+
+if __name__ == "__main__":
+    main()
