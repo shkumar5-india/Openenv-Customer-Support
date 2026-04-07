@@ -1,10 +1,85 @@
+# name: openenv-customer-support
+# version: "1.0.0"
+# description: >
+#   An OpenEnv-compatible AI environment that simulates a real-world
+#   customer support ticket system. Agents must classify tickets,
+#   handle refund requests, and make escalation decisions.
+# author: OpenEnv Community
+# license: MIT
+# environment:
+#   class: CustomerSupportEnv
+#   module: env.environment
+#   api_version: "1.0"
+
+# server:
+#   host: "0.0.0.0"
+#   port: 7860
+#   framework: fastapi
+# tasks:
+#   - name: easy_classification
+#     difficulty: easy
+#     max_steps: 1
+#     description: Classify a ticket and write a polite acknowledgement (hint provided)
+#     scoring_criteria:
+#       - category_match
+#       - politeness
+#       - response_quality
+#   - name: refund_handling
+#     difficulty: medium
+#     max_steps: 2
+#     description: Handle a refund ticket end-to-end with clear next steps
+#     scoring_criteria:
+#       - category_match  
+#       - politeness       
+#       - response_quality 
+#       - refund_clarity 
+#   - name: escalation_decision
+#     difficulty: hard
+#     max_steps: 2
+#     description: Decide whether to escalate and respond empathetically
+#     scoring_criteria:
+#       - category_match     
+#       - politeness           
+#       - response_quality   
+#       - escalation_accuracy  
+# dataset:
+#   path: data/support_tickets.csv
+#   format: csv
+#   columns:
+#     - ticket_id
+#     - text
+#     - category
+#     - priority
+#     - sentiment
+#   max_rows: 500
+#   random_seed: 42
+# reward:
+#   range: [0.0, 1.0]
+#   type: float
+# docker:
+#   base_image: python:3.10-slim
+#   expose_port: 8000
+# dependencies:
+#   python: ">=3.10"
+#   packages:
+#     - fastapi
+#     - uvicorn
+#     - pydantic
+#     - pandas
+#     - requests
+#     - openai
+
+
+
 name: openenv-customer-support
 version: "1.0.0"
 description: >
   An OpenEnv-compatible AI environment that simulates a real-world
   customer support ticket system. Agents must classify tickets,
   handle refund requests, and make escalation decisions.
-author: OpenEnv Community
+author:
+  name: "Hemanth Kumar"
+  email: "sirasapalli1238@gmail.com"
 license: MIT
 environment:
   class: CustomerSupportEnv
@@ -13,8 +88,9 @@ environment:
 
 server:
   host: "0.0.0.0"
-  port: 8000
+  port: 7860
   framework: fastapi
+
 tasks:
   - name: easy_classification
     difficulty: easy
@@ -42,6 +118,7 @@ tasks:
       - politeness           
       - response_quality   
       - escalation_accuracy  
+
 dataset:
   path: data/support_tickets.csv
   format: csv
@@ -53,18 +130,23 @@ dataset:
     - sentiment
   max_rows: 500
   random_seed: 42
+
 reward:
   range: [0.0, 1.0]
   type: float
+
 docker:
   base_image: python:3.10-slim
-  expose_port: 8000
+  expose_port: 7860
+
 dependencies:
-  python: ">=3.10"
+  python: ">=3.11"
   packages:
-    - fastapi
-    - uvicorn
-    - pydantic
-    - pandas
-    - requests
-    - openai
+    - fastapi>=0.110.0
+    - uvicorn[standard]>=0.29.0
+    - pydantic>=2.6.0
+    - pandas>=2.2.0
+    - requests>=2.31.0
+    - openai>=1.30.0
+    - python-multipart>=0.0.9
+    - httpx>=0.27.0
