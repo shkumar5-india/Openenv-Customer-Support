@@ -5,11 +5,11 @@ from typing import Any, Dict, List, Optional
 import requests
 from openai import OpenAI
 SERVER_BASE_URL = os.environ.get("SERVER_BASE_URL", "http://localhost:8000")
-API_BASE_URL    = os.environ.get("API_BASE_URL", "https://api.groq.com/openai/v1")
+API_BASE_URL = os.environ["API_BASE_URL"]  
 MODEL_NAME      = os.environ.get("MODEL_NAME", "llama-3.1-8b-instant")
-HF_TOKEN        = os.environ.get("HF_TOKEN", "")
+API_KEY      = os.environ["API_KEY"] 
 TASKS = ["easy_classification", "refund_handling", "escalation_decision"]
-client = OpenAI(api_key=HF_TOKEN or "dummy", base_url=API_BASE_URL)
+client = OpenAI(api_key=API_KEY, base_url=API_BASE_URL)
 def log_start(task: str, env: str, model: str) -> None:
     print(f"[START] task={task} env={env} model={model}", flush=True)
 def log_step(step: int, action: str, reward: float, done: bool, error: Optional[str]) -> None:
